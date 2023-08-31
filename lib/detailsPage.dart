@@ -13,10 +13,12 @@ class DetailsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DetailsPage> createState() => _detailsPageState();
+  State<DetailsPage> createState() => _DetailsPageState();
 }
 
-class _detailsPageState extends State<DetailsPage> {
+class _DetailsPageState extends State<DetailsPage> {
+  var selectedCard = 'WEIGHT';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,6 +168,9 @@ class _detailsPageState extends State<DetailsPage> {
                             ),
                           )
                         ],
+                      ),
+                      SizedBox(
+                        height: 20,
                       )
                     ],
                   ))
