@@ -97,21 +97,24 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 45),
-                  child: Container(
-                    // alignment: Alignment.center,
-                    // Lägg till Max-width? Ta bort "DeNNA GJORDE JAG"------
-                    height: MediaQuery.of(context).size.height - 300,
-                    child: ListView(
-                      children: [
-                        _buildFoodItems(
-                            'assets/plate1.png', 'salmon Bowl', '\$24.00'),
-                        _buildFoodItems(
-                            'assets/plate2.png', 'Spring Bowl', '\$22.00'),
-                        _buildFoodItems(
-                            'assets/plate6.png', 'Avocado Bowl', '\$26.00'),
-                        _buildFoodItems(
-                            'assets/plate5.png', 'Berry Bowl', '\$20.00'),
-                      ],
+                  child: Center(
+                    child: Container(
+                      width: 700,
+                      // alignment: Alignment.center,
+                      // Lägg till Max-width? Ta bort "DeNNA GJORDE JAG"------
+                      height: MediaQuery.of(context).size.height - 300,
+                      child: ListView(
+                        children: [
+                          _buildFoodItems(
+                              'assets/plate1.png', 'salmon Bowl', '\$24.00'),
+                          _buildFoodItems(
+                              'assets/plate2.png', 'Spring Bowl', '\$22.00'),
+                          _buildFoodItems(
+                              'assets/plate6.png', 'Avocado Bowl', '\$26.00'),
+                          _buildFoodItems(
+                              'assets/plate5.png', 'Berry Bowl', '\$20.00'),
+                        ],
+                      ),
                     ),
                   ),
                 ),
