@@ -98,6 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 45),
                   child: Container(
+                    // alignment: Alignment.center,
+                    // Lägg till Max-width? Ta bort "DeNNA GJORDE JAG"------
                     height: MediaQuery.of(context).size.height - 300,
                     child: ListView(
                       children: [
@@ -113,6 +115,64 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: 65,
+                      width: 65,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.grey,
+                              style: BorderStyle.solid,
+                              width: 1),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // Challenge, addera en tvåa här i övre höger hörn.
+                      height: 65,
+                      width: 65,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.grey,
+                              style: BorderStyle.solid,
+                              width: 1),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Icon(
+                          Icons.shopping_basket,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 65,
+                      width: 120,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.grey,
+                              style: BorderStyle.solid,
+                              width: 1),
+                          color: const Color(0xFF1C1428),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Center(
+                        child: Text(
+                          "Checkout",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Montserrat',
+                              fontSize: 15),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -129,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // Navigator.of(context).push("route");
         },
         child: Row(
-          // mainAxisAlignment DENNA GJORDE JAG NU
+          // mainAxisAlignment DENNA GJORDE JAG NU --------------------
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Remove container?
