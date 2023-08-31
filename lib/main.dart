@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hero/detailsPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -190,6 +191,9 @@ class _MyHomePageState extends State<MyHomePage> {
       child: InkWell(
         onTap: () {
           // Navigator.of(context).push("route");
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => DetailsPage(
+                  heroTag: imgPath, foodName: foodName, foodPrice: price)));
         },
         child: Row(
           // mainAxisAlignment DENNA GJORDE JAG NU --------------------
