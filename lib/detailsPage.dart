@@ -169,8 +169,54 @@ class _DetailsPageState extends State<DetailsPage> {
                           )
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
+                      ),
+                      Container(
+                        height: 150,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            _builInfoCard('WEIGHT', '300', 'G'),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _builInfoCard('CALORIES', '267', 'CAL'),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _builInfoCard('VITAMINS', 'A, B6', 'VIT'),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _builInfoCard('AVAIL', 'NO', 'AV'),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10)),
+                              color: Colors.black),
+                          height: 50,
+                          child: const Center(
+                            child: Text(
+                              "\$50",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Montserrat',
+                              ),
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ))
@@ -179,5 +225,73 @@ class _DetailsPageState extends State<DetailsPage> {
         ],
       ),
     );
+  }
+
+  Widget _builInfoCard(String cardTitle, String info, String unit) {
+    return InkWell(
+      onTap: () {
+        selectCard(cardTitle);
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeIn,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: cardTitle == selectedCard
+              ? const Color(0xFF7A9BEE)
+              : Colors.white,
+          border: Border.all(
+              color: cardTitle == selectedCard
+                  ? Colors.transparent
+                  : Colors.grey.withOpacity(0.3),
+              style: BorderStyle.solid,
+              width: 0.75),
+        ),
+        height: 100,
+        width: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, left: 15.0),
+              child: Text(
+                unit,
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 12,
+                  color:
+                      cardTitle == selectedCard ? Colors.white : Colors.black,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, bottom: 8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    info,
+                    style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 14,
+                        color: cardTitle == selectedCard
+                            ? Colors.white
+                            : Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  selectCard(cardTitle) {
+    setState(() {
+      selectedCard = cardTitle;
+    });
   }
 }
