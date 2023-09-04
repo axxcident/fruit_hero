@@ -16,35 +16,47 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Map<String, CartItem> cart = {
     'salmonBowl': CartItem(
-        id: '1',
-        heroTag: 'assets/plate1.png',
-        foodName: 'Salmon Bowl',
-        foodPrice: '\$24.00'),
+      id: '1',
+      heroTag: 'assets/plate1.png',
+      foodName: 'Salmon Bowl',
+      foodPrice: '\$24.00',
+      quantity: 0,
+    ),
     'springBowl': CartItem(
-        id: '2',
-        heroTag: 'assets/plate2.png',
-        foodName: 'Spring Bowl',
-        foodPrice: '\$24.00'),
+      id: '2',
+      heroTag: 'assets/plate2.png',
+      foodName: 'Spring Bowl',
+      foodPrice: '\$22.00',
+      quantity: 0,
+    ),
     'avocadoBowl': CartItem(
-        id: '3',
-        heroTag: 'assets/plate3.png',
-        foodName: 'Avocado Bowl',
-        foodPrice: '\$24.00'),
+      id: '3',
+      heroTag: 'assets/plate3.png',
+      foodName: 'Avocado Bowl',
+      foodPrice: '\$20.00',
+      quantity: 0,
+    ),
     'berryBowl': CartItem(
-        id: '4',
-        heroTag: 'assets/plate4.png',
-        foodName: 'Berry Bowl',
-        foodPrice: '\$24.00'),
+      id: '4',
+      heroTag: 'assets/plate4.png',
+      foodName: 'Berry Bowl',
+      foodPrice: '\$26.00',
+      quantity: 0,
+    ),
     'salmonSteak': CartItem(
-        id: '5',
-        heroTag: 'assets/plate5.png',
-        foodName: 'Salmon Steak',
-        foodPrice: '\$24.00'),
+      id: '5',
+      heroTag: 'assets/plate5.png',
+      foodName: 'Salmon Steak',
+      foodPrice: '\$21.00',
+      quantity: 0,
+    ),
     'cowSteak': CartItem(
-        id: '6',
-        heroTag: 'assets/plate6.png',
-        foodName: 'Cow Steak',
-        foodPrice: '\$24.00'),
+      id: '6',
+      heroTag: 'assets/plate6.png',
+      foodName: 'Cow Steak',
+      foodPrice: '\$29.99',
+      quantity: 0,
+    ),
   };
 
   @override
@@ -65,7 +77,26 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+// Summan Cart items
+// int totalItemsInCart = cart.values.fold(0, (sum, item) => sum + item.quantity);
+
 class _MyHomePageState extends State<MyHomePage> {
+  // Callback function to update the quantity in the Map
+  void updateQuantity(String itemId, int newQuantity) {
+    // setState(() {
+    //   widget.cart[itemId]!.quantity = newQuantity;
+    // });
+    setState(() {
+      if (widget.cart != null) {
+        final cartItem = widget.cart[itemId];
+        if (cartItem != null) {
+          cartItem.quantity = newQuantity;
+        }
+      }
+    });
+  }
+
+// f
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Text(
                   "Healthy",
-                  // widget.cart['1']?.foodName ?? 'Default Food Name',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       color: Colors.white,
@@ -151,46 +181,63 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: ListView(
                         children: [
                           _buildFoodItems(
-                              widget.cart['salmonBowl']?.heroTag ??
-                                  'assets/404-unsplash.jpg',
-                              widget.cart["salmonBowl"]?.foodName ??
-                                  'Default Food Name',
-                              widget.cart["salmonBowl"]?.foodPrice ??
-                                  '\$220.00'),
+                            widget.cart['salmonBowl']?.id ?? '0',
+                            widget.cart['salmonBowl']?.heroTag ??
+                                'assets/404-unsplash.jpg',
+                            widget.cart["salmonBowl"]?.foodName ??
+                                'Default Food Name',
+                            widget.cart["salmonBowl"]?.foodPrice ?? '\$220.00',
+                            widget.cart["salmonBowl"]?.quantity ?? 100,
+                            widget.cart["salmonBowl"]!,
+                          ),
                           _buildFoodItems(
+                              widget.cart['springBowl']?.id ?? '0',
                               widget.cart['springBowl']?.heroTag ??
                                   'assets/404-unsplash.jpg',
                               widget.cart["springBowl"]?.foodName ??
                                   'Default Food Name',
                               widget.cart["springBowl"]?.foodPrice ??
-                                  '\$220.00'),
+                                  '\$220.00',
+                              widget.cart["springBowl"]?.quantity ?? 100,
+                              widget.cart["springBowl"]!),
                           _buildFoodItems(
+                              widget.cart['avocadoBowl']?.id ?? '0',
                               widget.cart['avocadoBowl']?.heroTag ??
                                   'assets/404-unsplash.jpg',
                               widget.cart["avocadoBowl"]?.foodName ??
                                   'Default Food Name',
                               widget.cart["avocadoBowl"]?.foodPrice ??
-                                  '\$220.00'),
+                                  '\$220.00',
+                              widget.cart["avocadoBowl"]?.quantity ?? 100,
+                              widget.cart["avocadoBowl"]!),
                           _buildFoodItems(
+                              widget.cart['berryBowl']?.id ?? '0',
                               widget.cart['berryBowl']?.heroTag ??
                                   'assets/404-unsplash.jpg',
                               widget.cart["berryBowl"]?.foodName ??
                                   'Default Food Name',
-                              widget.cart["berryBowl"]?.foodPrice ??
-                                  '\$220.00'),
+                              widget.cart["berryBowl"]?.foodPrice ?? '\$220.00',
+                              widget.cart["berryBowl"]?.quantity ?? 100,
+                              widget.cart["berryBowl"]!),
                           _buildFoodItems(
+                              widget.cart['salmonSteak']?.id ?? '0',
                               widget.cart['salmonSteak']?.heroTag ??
                                   'assets/404-unsplash.jpg',
                               widget.cart["salmonSteak"]?.foodName ??
                                   'Default Food Name',
                               widget.cart["salmonSteak"]?.foodPrice ??
-                                  '\$220.00'),
+                                  '\$220.00',
+                              widget.cart["salmonSteak"]?.quantity ?? 100,
+                              widget.cart["salmonSteak"]!),
                           _buildFoodItems(
+                              widget.cart['cowSteak']?.id ?? '0',
                               widget.cart['cowSteak']?.heroTag ??
                                   'assets/404-unsplash.jpg',
                               widget.cart["cowSteak"]?.foodName ??
                                   'Default Food Name',
-                              widget.cart["cowSteak"]?.foodPrice ?? '\$220.00'),
+                              widget.cart["cowSteak"]?.foodPrice ?? '\$220.00',
+                              widget.cart["cowSteak"]?.quantity ?? 100,
+                              widget.cart["cowSteak"]!),
                           // _buildFoodItems(
                           //     'assets/plate2.png', 'Spring Bowl', '\$22.00'),
                           // _buildFoodItems(
@@ -270,7 +317,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildFoodItems(String imgPath, String foodName, String price) {
+  Widget _buildFoodItems(String id, String imgPath, String foodName,
+      String price, int quantity, CartItem item) {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: InkWell(
@@ -278,7 +326,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // Navigator.of(context).push("route");
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => DetailsPage(
-                  heroTag: imgPath, foodName: foodName, foodPrice: price)));
+                  id: id,
+                  heroTag: imgPath,
+                  foodName: foodName,
+                  foodPrice: price,
+                  quantity: quantity,
+                  item: item,
+                  updateQuantity: updateQuantity)));
         },
         child: Row(
           // mainAxisAlignment DENNA GJORDE JAG NU --------------------
@@ -313,7 +367,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             fontFamily: 'Montserrat',
                             fontSize: 15,
                             color: Colors.grey),
-                      )
+                      ),
+                      // QUANTITY FUNKAR EJ???
+                      Text(
+                        quantity.toString(),
+                        style: const TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 15,
+                            color: Colors.grey),
+                      ),
                     ],
                   )
                 ],

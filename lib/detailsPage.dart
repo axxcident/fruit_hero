@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hero/cart_item.dart';
 
 class DetailsPage extends StatefulWidget {
+  final String id;
   final String heroTag;
   final String foodName;
   final String foodPrice;
+  final int quantity;
+  final CartItem item;
+  final Function(String, int) updateQuantity;
 
-  const DetailsPage({
-    Key? key,
-    required this.heroTag,
-    required this.foodName,
-    required this.foodPrice,
-  }) : super(key: key);
+  const DetailsPage(
+      {Key? key,
+      required this.id,
+      required this.heroTag,
+      required this.foodName,
+      required this.foodPrice,
+      required this.quantity,
+      required this.item,
+      required this.updateQuantity})
+      : super(key: key);
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -18,8 +27,30 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   var selectedCard = 'WEIGHT';
+  int _quantity = 0;
 
   @override
+  void initState() {
+    super.initState();
+    _quantity = widget.quantity; // Initialize with the received quantity
+  }
+
+  void _incrementQuantity() {
+    setState(() {
+      _quantity++;
+      widget.updateQuantity(widget.item.id, _quantity);
+    });
+  }
+
+  void _decrementQuantity() {
+    if (_quantity > 0) {
+      setState(() {
+        _quantity--;
+        widget.updateQuantity(widget.item.id, _quantity);
+      });
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF7A9BEE),
@@ -122,7 +153,9 @@ class _DetailsPageState extends State<DetailsPage> {
                               children: [
                                 InkWell(
                                   // LÄGG TILL FUNKTION ADDERA/SUBTRAHERA
-                                  onTap: () {},
+                                  onTap: () {
+                                    _decrementQuantity();
+                                  },
                                   child: Container(
                                     height: 25,
                                     width: 25,
@@ -138,17 +171,19 @@ class _DetailsPageState extends State<DetailsPage> {
                                     ),
                                   ),
                                 ),
-                                // ÄNDRA DENNA SIFFRA TILL STATE & DYNAMISK
-                                const Text(
-                                  '2',
-                                  style: TextStyle(
+                                // ÄNDRADE DENNA SIFFRA TILL STATE & DYNAMISK
+                                Text(
+                                  _quantity.toString(),
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Montserrat',
                                       fontSize: 15),
                                 ),
                                 InkWell(
                                   // LÄGG TILL FUNKTION ADDERA/SUBTRAHERA
-                                  onTap: () {},
+                                  onTap: () {
+                                    _incrementQuantity();
+                                  },
                                   child: Container(
                                     height: 25,
                                     width: 25,
