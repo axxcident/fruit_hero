@@ -179,19 +179,19 @@ class _DetailsPageState extends State<DetailsPage> {
                           children: [
                             _builInfoCard('WEIGHT', '300', 'G'),
                             const SizedBox(
-                              height: 10,
+                              width: 10,
                             ),
                             _builInfoCard('CALORIES', '267', 'CAL'),
                             const SizedBox(
-                              height: 10,
+                              width: 10,
                             ),
                             _builInfoCard('VITAMINS', 'A, B6', 'VIT'),
                             const SizedBox(
-                              height: 10,
+                              width: 10,
                             ),
                             _builInfoCard('AVAIL', 'NO', 'AV'),
                             const SizedBox(
-                              height: 10,
+                              width: 10,
                             ),
                           ],
                         ),
@@ -253,6 +253,19 @@ class _DetailsPageState extends State<DetailsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 8, left: 15),
+              child: Text(
+                cardTitle,
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 12,
+                  color: cardTitle == selectedCard
+                      ? Colors.white
+                      : Colors.grey.withOpacity(0.7),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 8.0, left: 15.0),
               child: Text(
