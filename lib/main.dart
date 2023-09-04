@@ -1,23 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hero/detailsPage.dart';
+import 'cart_item.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map<String, CartItem> cart = {
+    'salmonBowl': CartItem(
+        id: '1',
+        heroTag: 'assets/plate1.png',
+        foodName: 'Salmon Bowl',
+        foodPrice: '\$24.00'),
+    'springBowl': CartItem(
+        id: '2',
+        heroTag: 'assets/plate2.png',
+        foodName: 'Spring Bowl',
+        foodPrice: '\$24.00'),
+    'avocadoBowl': CartItem(
+        id: '3',
+        heroTag: 'assets/plate3.png',
+        foodName: 'Avocado Bowl',
+        foodPrice: '\$24.00'),
+    'berryBowl': CartItem(
+        id: '4',
+        heroTag: 'assets/plate4.png',
+        foodName: 'Berry Bowl',
+        foodPrice: '\$24.00'),
+    'salmonSteak': CartItem(
+        id: '5',
+        heroTag: 'assets/plate5.png',
+        foodName: 'Salmon Steak',
+        foodPrice: '\$24.00'),
+    'cowSteak': CartItem(
+        id: '6',
+        heroTag: 'assets/plate6.png',
+        foodName: 'Cow Steak',
+        foodPrice: '\$24.00'),
+  };
+
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: MyHomePage(cart: cart),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  final Map<String, CartItem> cart;
+
+  const MyHomePage({Key? key, required this.cart}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -69,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Text(
                   "Healthy",
+                  // widget.cart['1']?.foodName ?? 'Default Food Name',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       color: Colors.white,
@@ -108,13 +151,54 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: ListView(
                         children: [
                           _buildFoodItems(
-                              'assets/plate1.png', 'salmon Bowl', '\$24.00'),
+                              widget.cart['salmonBowl']?.heroTag ??
+                                  'assets/404-unsplash.jpg',
+                              widget.cart["salmonBowl"]?.foodName ??
+                                  'Default Food Name',
+                              widget.cart["salmonBowl"]?.foodPrice ??
+                                  '\$220.00'),
                           _buildFoodItems(
-                              'assets/plate2.png', 'Spring Bowl', '\$22.00'),
+                              widget.cart['springBowl']?.heroTag ??
+                                  'assets/404-unsplash.jpg',
+                              widget.cart["springBowl"]?.foodName ??
+                                  'Default Food Name',
+                              widget.cart["springBowl"]?.foodPrice ??
+                                  '\$220.00'),
                           _buildFoodItems(
-                              'assets/plate6.png', 'Avocado Bowl', '\$26.00'),
+                              widget.cart['avocadoBowl']?.heroTag ??
+                                  'assets/404-unsplash.jpg',
+                              widget.cart["avocadoBowl"]?.foodName ??
+                                  'Default Food Name',
+                              widget.cart["avocadoBowl"]?.foodPrice ??
+                                  '\$220.00'),
                           _buildFoodItems(
-                              'assets/plate5.png', 'Berry Bowl', '\$20.00'),
+                              widget.cart['berryBowl']?.heroTag ??
+                                  'assets/404-unsplash.jpg',
+                              widget.cart["berryBowl"]?.foodName ??
+                                  'Default Food Name',
+                              widget.cart["berryBowl"]?.foodPrice ??
+                                  '\$220.00'),
+                          _buildFoodItems(
+                              widget.cart['salmonSteak']?.heroTag ??
+                                  'assets/404-unsplash.jpg',
+                              widget.cart["salmonSteak"]?.foodName ??
+                                  'Default Food Name',
+                              widget.cart["salmonSteak"]?.foodPrice ??
+                                  '\$220.00'),
+                          _buildFoodItems(
+                              widget.cart['cowSteak']?.heroTag ??
+                                  'assets/404-unsplash.jpg',
+                              widget.cart["cowSteak"]?.foodName ??
+                                  'Default Food Name',
+                              widget.cart["cowSteak"]?.foodPrice ?? '\$220.00'),
+                          // _buildFoodItems(
+                          //     'assets/plate2.png', 'Spring Bowl', '\$22.00'),
+                          // _buildFoodItems(
+                          //     'assets/plate6.png', 'Avocado Bowl', '\$26.00'),
+                          // _buildFoodItems(
+                          //     'assets/plate5.png', 'Berry Bowl', '\$20.00'),
+                          // _buildFoodItems(
+                          //     'assets/plate3.png', 'Salmon Steak', '\$21.00'),
                         ],
                       ),
                     ),
