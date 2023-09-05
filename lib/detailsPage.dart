@@ -16,17 +16,20 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   var selectedCard = 'WEIGHT';
   int _quantity = 0;
+  int itemCosts = 0;
 
   @override
   void initState() {
     super.initState();
     _quantity = widget.item.quantity; // Initialize with the received quantity
+    _calculateCost();
   }
 
   void _incrementQuantity() {
     setState(() {
       _quantity++;
       widget.updateQuantity(widget.item, _quantity);
+      _calculateCost();
     });
   }
 
@@ -35,10 +38,28 @@ class _DetailsPageState extends State<DetailsPage> {
       setState(() {
         _quantity--;
         widget.updateQuantity(widget.item, _quantity);
+        _calculateCost();
       });
     }
   }
 
+  void _calculateCost() {
+    if (widget.item.quantity != 0) {
+      setState(() {
+        String priceWithoutDollarSign =
+            widget.item.foodPrice.replaceAll(RegExp(r'[^0-9]'), '');
+        priceWithoutDollarSign =
+            priceWithoutDollarSign.replaceAll(RegExp(r'0*$'), '');
+        itemCosts = widget.item.quantity * int.parse(priceWithoutDollarSign);
+      });
+    } else {
+      setState(() {
+        itemCosts = 0;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF7A9BEE),
@@ -229,15 +250,29 @@ class _DetailsPageState extends State<DetailsPage> {
                                   topLeft: Radius.circular(10)),
                               color: Colors.black),
                           height: 50,
-                          child: const Center(
-                            child: Text(
-                              "\$50",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Montserrat',
-                              ),
-                            ),
-                          ),
+                          child: Builder(builder: (BuildContext context) {
+                            if (itemCosts == 0) {
+                              return const Center(
+                                child: Text(
+                                  "\$0",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return Center(
+                                child: Text(
+                                  '\$$itemCosts',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Montserrat',
+                                  ),
+                                ),
+                              );
+                            }
+                          }),
                         ),
                       )
                     ],

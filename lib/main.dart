@@ -337,20 +337,37 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  if (widget.cart != null) {
-                    item.quantity += 1;
-                    updateCartItemCount();
-                  } else {
-                    print('Somethings off');
-                  }
-                });
-              },
-              icon: const Icon(Icons.add),
-              color: Colors.black,
-            )
+            Row(children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    if (widget.cart != null) {
+                      item.quantity += 1;
+                      updateCartItemCount();
+                    } else {
+                      print('Somethings off');
+                    }
+                  });
+                },
+                icon: const Icon(Icons.add),
+                color: Colors.black,
+              ),
+              if (item.quantity > 0)
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (widget.cart != null) {
+                        item.quantity -= 1;
+                        updateCartItemCount();
+                      } else {
+                        print('Somethings off');
+                      }
+                    });
+                  },
+                  icon: const Icon(Icons.remove),
+                  color: Colors.black,
+                )
+            ]),
           ],
         ),
       ),
