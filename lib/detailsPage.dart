@@ -2,24 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hero/cart_item.dart';
 
 class DetailsPage extends StatefulWidget {
-  final String id;
-  final String heroTag;
-  final String foodName;
-  final String foodPrice;
-  final int quantity;
   final CartItem item;
   final Function(CartItem, int) updateQuantity;
-  // final Function(String, int) updateQuantity;
 
   const DetailsPage(
-      {Key? key,
-      required this.id,
-      required this.heroTag,
-      required this.foodName,
-      required this.foodPrice,
-      required this.quantity,
-      required this.item,
-      required this.updateQuantity})
+      {Key? key, required this.item, required this.updateQuantity})
       : super(key: key);
 
   @override
@@ -33,14 +20,12 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    // _quantity = widget.quantity; // Initialize with the received quantity
     _quantity = widget.item.quantity; // Initialize with the received quantity
   }
 
   void _incrementQuantity() {
     setState(() {
       _quantity++;
-      print(widget.item);
       widget.updateQuantity(widget.item, _quantity);
     });
   }
@@ -50,7 +35,6 @@ class _DetailsPageState extends State<DetailsPage> {
       setState(() {
         _quantity--;
         widget.updateQuantity(widget.item, _quantity);
-        // widget.updateQuantity(widget.item, _quantity);
       });
     }
   }
@@ -105,11 +89,12 @@ class _DetailsPageState extends State<DetailsPage> {
                   top: 30,
                   left: (MediaQuery.of(context).size.width / 2) - 100,
                   child: Hero(
-                      tag: widget.heroTag,
+                      // tag: widget.heroTag,
+                      tag: widget.item.heroTag,
                       child: Container(
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage(widget.heroTag),
+                                image: AssetImage(widget.item.heroTag),
                                 fit: BoxFit.cover)),
                         height: 200,
                         width: 200,
@@ -122,7 +107,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        widget.foodName,
+                        widget.item.foodName,
                         style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: 22,
@@ -135,7 +120,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.foodPrice,
+                            widget.item.foodPrice,
                             style: const TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontSize: 20,
@@ -175,7 +160,6 @@ class _DetailsPageState extends State<DetailsPage> {
                                     ),
                                   ),
                                 ),
-                                // ÄNDRADE DENNA SIFFRA TILL STATE & DYNAMISK
                                 Text(
                                   _quantity.toString(),
                                   style: const TextStyle(
@@ -184,7 +168,6 @@ class _DetailsPageState extends State<DetailsPage> {
                                       fontSize: 15),
                                 ),
                                 InkWell(
-                                  // LÄGG TILL FUNKTION ADDERA/SUBTRAHERA
                                   onTap: () {
                                     _incrementQuantity();
                                   },

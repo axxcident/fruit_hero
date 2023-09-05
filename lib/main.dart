@@ -81,23 +81,10 @@ class MyHomePage extends StatefulWidget {
 // int totalItemsInCart = cart.values.fold(0, (sum, item) => sum + item.quantity);
 
 class _MyHomePageState extends State<MyHomePage> {
-  // Callback function to update the quantity in the Map
   void updateQuantity(CartItem item, int newQuantity) {
-    // void updateQuantity(String itemKey, int newQuantity) {
     setState(() {
       if (widget.cart != null) {
-        print("newQuantity & item");
-        // print(widget.cart[itemId]);
-        print(newQuantity);
-        print(item);
         item.quantity = newQuantity;
-        print('Ny quantity på plats');
-        // final cartItem = widget.cart[itemId];
-        // final cartItem = widget.cart['salmonBowl'];
-        // if (item != null) {
-        // cartItem.quantity = newQuantity;
-        // print("This is else kind of");
-        // }
       } else {
         print('Somethings off');
       }
@@ -187,72 +174,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: MediaQuery.of(context).size.height - 300,
                       child: ListView(
                         children: [
-                          _buildFoodItems(
-                            widget.cart['salmonBowl']?.id ?? '0',
-                            widget.cart['salmonBowl']?.heroTag ??
-                                'assets/404-unsplash.jpg',
-                            widget.cart["salmonBowl"]?.foodName ??
-                                'Default Food Name',
-                            widget.cart["salmonBowl"]?.foodPrice ?? '\$220.00',
-                            widget.cart["salmonBowl"]?.quantity ?? 100,
-                            widget.cart["salmonBowl"]!,
-                          ),
-                          _buildFoodItems(
-                              widget.cart['springBowl']?.id ?? '0',
-                              widget.cart['springBowl']?.heroTag ??
-                                  'assets/404-unsplash.jpg',
-                              widget.cart["springBowl"]?.foodName ??
-                                  'Default Food Name',
-                              widget.cart["springBowl"]?.foodPrice ??
-                                  '\$220.00',
-                              widget.cart["springBowl"]?.quantity ?? 100,
-                              widget.cart["springBowl"]!),
-                          _buildFoodItems(
-                              widget.cart['avocadoBowl']?.id ?? '0',
-                              widget.cart['avocadoBowl']?.heroTag ??
-                                  'assets/404-unsplash.jpg',
-                              widget.cart["avocadoBowl"]?.foodName ??
-                                  'Default Food Name',
-                              widget.cart["avocadoBowl"]?.foodPrice ??
-                                  '\$220.00',
-                              widget.cart["avocadoBowl"]?.quantity ?? 100,
-                              widget.cart["avocadoBowl"]!),
-                          _buildFoodItems(
-                              widget.cart['berryBowl']?.id ?? '0',
-                              widget.cart['berryBowl']?.heroTag ??
-                                  'assets/404-unsplash.jpg',
-                              widget.cart["berryBowl"]?.foodName ??
-                                  'Default Food Name',
-                              widget.cart["berryBowl"]?.foodPrice ?? '\$220.00',
-                              widget.cart["berryBowl"]?.quantity ?? 100,
-                              widget.cart["berryBowl"]!),
-                          _buildFoodItems(
-                              widget.cart['salmonSteak']?.id ?? '0',
-                              widget.cart['salmonSteak']?.heroTag ??
-                                  'assets/404-unsplash.jpg',
-                              widget.cart["salmonSteak"]?.foodName ??
-                                  'Default Food Name',
-                              widget.cart["salmonSteak"]?.foodPrice ??
-                                  '\$220.00',
-                              widget.cart["salmonSteak"]?.quantity ?? 100,
-                              widget.cart["salmonSteak"]!),
-                          _buildFoodItems(
-                              widget.cart['cowSteak']?.id ?? '0',
-                              widget.cart['cowSteak']?.heroTag ??
-                                  'assets/404-unsplash.jpg',
-                              widget.cart["cowSteak"]?.foodName ??
-                                  'Default Food Name',
-                              widget.cart["cowSteak"]?.foodPrice ?? '\$220.00',
-                              widget.cart["cowSteak"]?.quantity ?? 100,
-                              widget.cart["cowSteak"]!),
-                          // _buildFoodItems(
-                          //     'assets/plate2.png', 'Spring Bowl', '\$22.00'),
-                          // _buildFoodItems(
-                          //     'assets/plate6.png', 'Avocado Bowl', '\$26.00'),
-                          // _buildFoodItems(
-                          //     'assets/plate5.png', 'Berry Bowl', '\$20.00'),
-                          // _buildFoodItems(
-                          //     'assets/plate3.png', 'Salmon Steak', '\$21.00'),
+                          _buildFoodItems(widget.cart["salmonBowl"]!),
+                          _buildFoodItems(widget.cart["springBowl"]!),
+                          _buildFoodItems(widget.cart["avocadoBowl"]!),
+                          _buildFoodItems(widget.cart["berryBowl"]!),
+                          _buildFoodItems(widget.cart["salmonSteak"]!),
+                          _buildFoodItems(widget.cart["cowSteak"]!),
                         ],
                       ),
                     ),
@@ -324,22 +251,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildFoodItems(String id, String imgPath, String foodName,
-      String price, int quantity, CartItem item) {
+  Widget _buildFoodItems(CartItem item) {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: InkWell(
         onTap: () {
           // Navigator.of(context).push("route");
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => DetailsPage(
-                  id: id,
-                  heroTag: imgPath,
-                  foodName: foodName,
-                  foodPrice: price,
-                  quantity: quantity,
-                  item: item,
-                  updateQuantity: updateQuantity)));
+              builder: (context) =>
+                  DetailsPage(item: item, updateQuantity: updateQuantity)));
         },
         child: Row(
           // mainAxisAlignment DENNA GJORDE JAG NU --------------------
@@ -350,9 +270,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 children: [
                   Hero(
-                      tag: imgPath,
+                      tag: item.heroTag,
                       child: Image(
-                        image: AssetImage(imgPath),
+                        image: AssetImage(item.heroTag),
                         fit: BoxFit.cover,
                         height: 75,
                         width: 75,
@@ -362,22 +282,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        foodName,
+                        item.foodName,
                         style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: 17,
                             fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        price,
+                        item.foodPrice,
                         style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: 15,
                             color: Colors.grey),
                       ),
-                      // QUANTITY FUNKAR EJ???
                       Text(
-                        quantity.toString(),
+                        item.quantity.toString(),
                         style: const TextStyle(
                             fontFamily: 'Montserrat',
                             fontSize: 15,
