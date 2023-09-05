@@ -81,14 +81,25 @@ class MyHomePage extends StatefulWidget {
 // int totalItemsInCart = cart.values.fold(0, (sum, item) => sum + item.quantity);
 
 class _MyHomePageState extends State<MyHomePage> {
+  int cartItemCount = 0;
+
   void updateQuantity(CartItem item, int newQuantity) {
     setState(() {
       if (widget.cart != null) {
         item.quantity = newQuantity;
+        updateCartItemCount();
       } else {
         print('Somethings off');
       }
     });
+  }
+
+  void updateCartItemCount() {
+    int count = 0;
+    widget.cart.values.forEach((item) {
+      count += item.quantity;
+    });
+    cartItemCount = count;
   }
 
   @override
@@ -204,23 +215,42 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    Container(
-                      // Challenge, addera en tvåa här i övre höger hörn.
-                      height: 65,
-                      width: 65,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.grey,
-                              style: BorderStyle.solid,
-                              width: 1),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: const Center(
-                        child: Icon(
-                          Icons.shopping_basket,
-                          color: Colors.black,
+                    Stack(children: [
+                      Container(
+                        // Challenge, addera en tvåa här i övre höger hörn.
+                        height: 65,
+                        width: 65,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.grey,
+                                style: BorderStyle.solid,
+                                width: 1),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Center(
+                          child: Icon(
+                            Icons.shopping_basket,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
-                    ),
+                      if (cartItemCount > 0)
+                        Positioned(
+                            top: 5,
+                            right: 8,
+                            child: Container(
+                              padding: const EdgeInsets.all(3),
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Text(
+                                cartItemCount.toString(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ))
+                    ]),
                     Container(
                       height: 65,
                       width: 120,
@@ -308,7 +338,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  if (widget.cart != null) {
+                    item.quantity += 1;
+                    updateCartItemCount();
+                  } else {
+                    print('Somethings off');
+                  }
+                });
+              },
               icon: const Icon(Icons.add),
               color: Colors.black,
             )
