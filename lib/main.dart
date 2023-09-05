@@ -82,21 +82,28 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // Callback function to update the quantity in the Map
-  void updateQuantity(String itemId, int newQuantity) {
-    // setState(() {
-    //   widget.cart[itemId]!.quantity = newQuantity;
-    // });
+  void updateQuantity(CartItem item, int newQuantity) {
+    // void updateQuantity(String itemKey, int newQuantity) {
     setState(() {
       if (widget.cart != null) {
-        final cartItem = widget.cart[itemId];
-        if (cartItem != null) {
-          cartItem.quantity = newQuantity;
-        }
+        print("newQuantity & item");
+        // print(widget.cart[itemId]);
+        print(newQuantity);
+        print(item);
+        item.quantity = newQuantity;
+        print('Ny quantity på plats');
+        // final cartItem = widget.cart[itemId];
+        // final cartItem = widget.cart['salmonBowl'];
+        // if (item != null) {
+        // cartItem.quantity = newQuantity;
+        // print("This is else kind of");
+        // }
+      } else {
+        print('Somethings off');
       }
     });
   }
 
-// f
   @override
   Widget build(BuildContext context) {
     return Scaffold(

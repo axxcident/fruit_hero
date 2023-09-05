@@ -8,7 +8,8 @@ class DetailsPage extends StatefulWidget {
   final String foodPrice;
   final int quantity;
   final CartItem item;
-  final Function(String, int) updateQuantity;
+  final Function(CartItem, int) updateQuantity;
+  // final Function(String, int) updateQuantity;
 
   const DetailsPage(
       {Key? key,
@@ -32,13 +33,15 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    _quantity = widget.quantity; // Initialize with the received quantity
+    // _quantity = widget.quantity; // Initialize with the received quantity
+    _quantity = widget.item.quantity; // Initialize with the received quantity
   }
 
   void _incrementQuantity() {
     setState(() {
       _quantity++;
-      widget.updateQuantity(widget.item.id, _quantity);
+      print(widget.item);
+      widget.updateQuantity(widget.item, _quantity);
     });
   }
 
@@ -46,7 +49,8 @@ class _DetailsPageState extends State<DetailsPage> {
     if (_quantity > 0) {
       setState(() {
         _quantity--;
-        widget.updateQuantity(widget.item.id, _quantity);
+        widget.updateQuantity(widget.item, _quantity);
+        // widget.updateQuantity(widget.item, _quantity);
       });
     }
   }
